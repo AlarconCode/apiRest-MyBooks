@@ -6,11 +6,11 @@ const postUser = (req, res) => {
 
     let response = {error: true, code:500, result: []}
 
-    const {name, surname, email, photo} = req.body
+    const {name, surname, email, photo, password} = req.body
 
-    let params = [name, surname, email, photo]
+    let params = [name, surname, email, photo, password]
 
-    let sql = `INSERT INTO user (name, surname, email, photo) VALUES (?, ?, ?, ?);`
+    let sql = `INSERT INTO user (name, surname, email, photo, password) VALUES (?, ?, ?, ?, ?);`
 
     connection.query(sql, params, (err, result) => {
 
@@ -33,11 +33,11 @@ const postLogin = (req, res) => {
 
     let response = {error: true, code:500, result: []}
 
-    const {email} = req.body
+    const {email, password} = req.body
 
-    let params = [email]
+    let params = [email, password]
 
-    let sql = `SELECT name, surname, email, photo FROM user WHERE email = ?`
+    let sql = `SELECT id_user, name, surname, email, photo FROM user WHERE email = ? AND password = ?`
 
     connection.query(sql, params, (err, result) => {
 
